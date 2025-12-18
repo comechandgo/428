@@ -24,7 +24,7 @@ public class palyer : MonoBehaviour
     public GameObject ATKArea;
     public Animator animator;
     public float playerDamage;
-    private bool isATKing;
+    private bool isATKing = false;
     //不可见变量
     private Rigidbody2D rb;
     private bool isGrounded;
@@ -35,7 +35,6 @@ public class palyer : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         currentStamina = maxStamina;
         currentHP = maxHP;
-        isATKing = true;
     }
     void Update()
     {
@@ -48,7 +47,7 @@ public class palyer : MonoBehaviour
     {
         if (!isATKing)
         {
-             playerInput = Input.GetAxisRaw("Horizontal");
+            playerInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(playerInput * moveSpeed,rb.velocity.y);
             //后面这里是简单的转向
             if(playerInput >= 0)
