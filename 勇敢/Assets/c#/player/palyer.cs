@@ -21,7 +21,7 @@ public class palyer : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask whatIsGround;
     [Header("战斗相关")]
-    public GameObject ATKArea;
+    public Collider2D ATKArea;
     public Animator animator;
     public float playerDamage;
     private bool isATKing = false;
@@ -35,6 +35,7 @@ public class palyer : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         currentStamina = maxStamina;
         currentHP = maxHP;
+        ATKArea.enabled = false;
     }
     void Update()
     {
@@ -64,19 +65,15 @@ public class palyer : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.W))
         {
-            canRegenStamina = false;
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,whatIsGround);
             if(isGrounded && currentStamina >= jumpStaminaCost)
             {
-                canRegenStamina = false;
                 rb.velocity = new Vector2(rb.velocity.x,jumpForce);
                 //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 ConSumeStamina(jumpStaminaCost);//体力花费函数
             }else if(currentStamina <= 20f){
                 Debug.Log("体力不足，无法跳跃");
             }
-        }else if(isGrounded){
-            canRegenStamina = true;
         }
     }
     void playerATK()
@@ -85,9 +82,11 @@ public class palyer : MonoBehaviour
         {
             if (currentStamina >= AtkStaminaCost)
             {
+                Debug.Log("atk");
                 ConSumeStamina(AtkStaminaCost);
-                canRegenStamina = false;
+                DonoRegenStamina();
                 //攻击代码
+                animator.SetTrigger("TriggerATK");
             }
         }
     }
@@ -103,5 +102,25 @@ public class palyer : MonoBehaviour
         {
             currentStamina += staminaReplyPerSecond * Time.deltaTime;
         }
+    }
+    //打开受击碰撞箱
+    public void EnableHitbox()
+    {
+        ATKArea.enabled = true;
+    } 
+    //关掉受击碰撞箱
+    public void DisAbleHitbox()
+    {
+        ATKArea.enabled = false;
+    }
+    //可以回复体力
+    public void CanRegenStamina()
+    {
+        canRegenStamina = true;
+    }
+    //禁止回复体力
+    public void DonoRegenStamina()
+    {
+        canRegenStamina = false;
     }
 }

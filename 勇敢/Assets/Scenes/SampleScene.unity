@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &438977658
 Transform:
   m_ObjectHideFlags: 0
@@ -306,9 +306,9 @@ GameObject:
   m_Component:
   - component: {fileID: 973128468}
   - component: {fileID: 973128467}
+  - component: {fileID: 973128469}
   - component: {fileID: 973128466}
   - component: {fileID: 973128465}
-  - component: {fileID: 973128469}
   - component: {fileID: 973128470}
   m_Layer: 0
   m_Name: "\u4E3B\u89D2"
@@ -450,7 +450,7 @@ Transform:
   m_GameObject: {fileID: 973128464}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5117298, y: -1.5219193, z: 0}
+  m_LocalPosition: {x: 1.5117298, y: -1.521919, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -485,7 +485,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  ATKArea: {fileID: 438977657}
+  ATKArea: {fileID: 438977659}
   animator: {fileID: 973128470}
   playerDamage: 0
 --- !u!95 &973128470
@@ -696,7 +696,7 @@ Transform:
   m_GameObject: {fileID: 1981376109}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.40927017, y: -0.14908075, z: 0}
+  m_LocalPosition: {x: 0.40927017, y: -0.1490808, z: 0}
   m_LocalScale: {x: 0.26405504, y: 0.02691792, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
