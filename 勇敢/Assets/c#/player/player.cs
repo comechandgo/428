@@ -68,6 +68,7 @@ public class player : MonoBehaviour
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,whatIsGround);
             if(isGrounded && currentStamina >= jumpStaminaCost)
             {
+                Debug.Log("Jimping");
                 rb.velocity = new Vector2(rb.velocity.x,jumpForce);
                 //rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
                 ConSumeStamina(jumpStaminaCost);//体力花费函数
