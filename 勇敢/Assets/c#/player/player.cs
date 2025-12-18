@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class palyer : MonoBehaviour
+public class player : MonoBehaviour
 {
     [Header("玩家基本数值")]
     public float maxHP = 1000f;
@@ -27,7 +27,7 @@ public class palyer : MonoBehaviour
     private bool isATKing = false;
     //不可见变量
     private Rigidbody2D rb;
-    private bool isGrounded;
+    private bool isGrounded;//是否在地面上
     private float playerInput;
     private bool canRegenStamina = true;//是否允许回复体力
     void Start()
@@ -41,7 +41,6 @@ public class palyer : MonoBehaviour
     {
         Move();
         Jump();
-        playerATK();
         replyStamina();
     }
     void Move()
@@ -65,6 +64,7 @@ public class palyer : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space)||Input.GetKeyDown(KeyCode.W))
         {
+            Debug.Log("Jump");
             isGrounded = Physics2D.OverlapCircle(groundCheck.position,groundCheckRadius,whatIsGround);
             if(isGrounded && currentStamina >= jumpStaminaCost)
             {
@@ -76,22 +76,8 @@ public class palyer : MonoBehaviour
             }
         }
     }
-    void playerATK()
-    {
-        if(Input.GetMouseButtonDown(0) && !isATKing)
-        {
-            if (currentStamina >= AtkStaminaCost)
-            {
-                Debug.Log("atk");
-                ConSumeStamina(AtkStaminaCost);
-                DonoRegenStamina();
-                //攻击代码
-                animator.SetTrigger("TriggerATK");
-            }
-        }
-    }
     //体力花费方法
-    void ConSumeStamina(float cost)
+    public void ConSumeStamina(float cost)
     {
         currentStamina -= cost;
     }
