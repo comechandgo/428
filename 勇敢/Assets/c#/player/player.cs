@@ -9,10 +9,10 @@ public class player : MonoBehaviour
     public float currentHP;
     public float maxStamina = 100f;
     [Header("耐力相关数值")]
-    public float staminaReplyPerSecond = 15f;//每秒回复的体力值
+    public float staminaReplyPerSecond = 40f;//每秒回复的体力值
     public float currentStamina;//现在的体力值
     public float jumpStaminaCost = 20f;//跳跃体力消耗
-    public float AtkStaminaCost = 20f;//攻击体力消耗
+    public float AtkStaminaCost = 10f;//攻击体力消耗
     [Header("移动相关数值")]
     public float moveSpeed = 5f;
     public float jumpForce = 3f;
@@ -21,12 +21,14 @@ public class player : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask whatIsGround;
     [Header("战斗相关")]
+    public GameObject theATKArea;
     public Collider2D ATKArea;
+    public bool isNormalATKing;
     public Animator animator;
     public float playerDamage;
-    private bool isATKing = false;
+    public bool isATKing = false;
     //不可见变量
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private bool isGrounded;//是否在地面上
     private float playerInput;
     private bool canRegenStamina = true;//是否允许回复体力
@@ -36,6 +38,7 @@ public class player : MonoBehaviour
         currentStamina = maxStamina;
         currentHP = maxHP;
         ATKArea.enabled = false;
+        ATKArea = theATKArea.GetComponent<Collider2D>();
     }
     void Update()
     {
@@ -50,11 +53,11 @@ public class player : MonoBehaviour
             playerInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(playerInput * moveSpeed,rb.velocity.y);
             //后面这里是简单的转向
-            if(playerInput >= 0)
+            if(playerInput > 0)
             {
                 transform.localScale = new Vector3(1,1,1);
             }
-            else
+            else if(playerInput < 0)
             {
                 transform.localScale = new Vector3(-1,1,1);
             }
@@ -94,6 +97,7 @@ public class player : MonoBehaviour
     public void EnableHitbox()
     {
         ATKArea.enabled = true;
+
     } 
     //关掉受击碰撞箱
     public void DisAbleHitbox()
