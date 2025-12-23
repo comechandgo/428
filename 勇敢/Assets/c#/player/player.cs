@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class player : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class player : MonoBehaviour
     public Animator animator;
     public float playerDamage;
     public bool isATKing = false;
+
+    [Header("广播血量及耐力")]
+    public UnityEvent<player> OnBasicBarChange;
+
     //不可见变量
     public Rigidbody2D rb;
     private bool isGrounded;//是否在地面上
@@ -84,6 +89,7 @@ public class player : MonoBehaviour
     public void ConSumeStamina(float cost)
     {
         currentStamina -= cost;
+        OnBasicBarChange?.Invoke(this);
     }
     //体力回复方法
     void replyStamina()
@@ -92,6 +98,7 @@ public class player : MonoBehaviour
         {
             currentStamina += staminaReplyPerSecond * Time.deltaTime;
         }
+        OnBasicBarChange?.Invoke(this);
     }
     //打开受击碰撞箱
     public void EnableHitbox()
